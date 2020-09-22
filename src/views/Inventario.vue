@@ -18,6 +18,8 @@
             "juguetes"
 
         ])
-    }
+    },
+    
+
   }
 </script>

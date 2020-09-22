@@ -11,7 +11,22 @@ export default new Vuex.Store({
       { id:"003", nombre: "iron-man", stock: 500, precio: 9000},
     ]
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+    DESCONTAR(state, payload){
+      state.juguetes = state.juguetes.map((e)=>{
+     if  (e.id == payload.trim()) {
+          e.stock--
+       }
+       return e
+     });
+    }
+  },
+  actions: {
+    descontar({commit}, payload ){
+       commit("DESCONTAR", payload )
+    }
+  },
   modules: {},
 })
+
+
