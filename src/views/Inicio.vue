@@ -14,7 +14,8 @@
 
 <script>
 import {
-  mapState
+  mapState,
+  mapGetters
 } from "vuex";
 export default {
   name: "Home",
