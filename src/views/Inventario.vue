@@ -10,7 +10,7 @@
   export default {
     data() {
       return {
-        fields: ['id', 'nombre', 'stock', 'precio'],
+        fields: ['id', 'nombre', 'stock', 'precio', 'color'],
       }
     },
     computed: {

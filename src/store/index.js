@@ -11,6 +11,18 @@ export default new Vuex.Store({
       { id:"003", nombre: "iron-man", stock: 500, precio: 9000},
     ]
   },
+  getters:{
+    productosConStock: (state) =>{
+      return state.juguetes.filter((producto)=>{
+        return producto.stock > 0;
+      });
+    },
+    productoDisponiblePorId: (state, getters) => (id) =>{
+      return getters.productosConStock.filter((producto)=>
+       producto.id == id
+      )
+    }
+  },
   mutations: {
     DESCONTAR(state, payload){
       state.juguetes = state.juguetes.map((e)=>{
