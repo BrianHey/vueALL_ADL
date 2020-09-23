@@ -10,6 +10,7 @@ export default new Vuex.Store({
       { id: '002', nombre: 'batman', stock: 300, precio: 7000 },
       { id: '003', nombre: 'iron-man', stock: 500, precio: 9000 },
     ],
+    historialDeVentas: []
   },
   getters: {
     productosConStock: (state) => {
@@ -23,13 +24,19 @@ export default new Vuex.Store({
   },
   mutations: {
     DESCONTAR(state, payload) {
+      let registro = null
       state.juguetes = state.juguetes.map((e) => {
         if (e.id == payload.trim()) {
           e.stock--
+          registro = e
         }
         return e
       })
+      this.commit('REGISTRO' , registro )
     },
+    REGISTRO(state , e) {
+      state.historialDeVentas.push(e)
+    }
   },
   actions: {
     descontar({ commit }, payload) {
