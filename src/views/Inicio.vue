@@ -1,7 +1,10 @@
 <template>
 <div class="home container px-5">
   <label for>Id</label>
-  <b-form-input id="input-2" v-model="id" placeholder="Nombre"></b-form-input>
+  <select class="form-control">
+    <option v-for="(juguete,i) in juguetes" :key="i" :value="juguete.nombre">{{juguete.nombre}}</option>
+  </select>
+  <!-- <b-form-input id="input-2" v-model="id" placeholder="Nombre"></b-form-input> -->
   <label for>Nombre</label>
   <b-form-input :disabled="true" id="input-2" v-model="juguete.nombre" placeholder="Nombre"></b-form-input>
   <label for>Stock</label>
@@ -39,6 +42,7 @@ export default {
       };
       return this.juguetes.find((j) => j.id == this.id) || juguete;
     },
+    ...mapGetters(["ids"]),
   },
 };
 </script>

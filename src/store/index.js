@@ -1,16 +1,16 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import { v4 as uuidv4 } from 'uuid'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     juguetes: [
-      { id: '001', nombre: 'superman', stock: 100, precio: 5000 },
-      { id: '002', nombre: 'batman', stock: 300, precio: 7000 },
-      { id: '003', nombre: 'iron-man', stock: 500, precio: 9000 },
+      { id: uuidv4().slice(30), nombre: 'superman', stock: 100, precio: 5000, color: 'red', fecha: new Date() },
+      { id: uuidv4().slice(30), nombre: 'batman', stock: 300, precio: 7000, color: 'blue', fecha: new Date() },
+      { id: uuidv4().slice(30), nombre: 'iron-man', stock: 500, precio: 9000, color: 'yellow', fecha: new Date() },
     ],
-    historialDeVentas: []
+    historialDeVentas: [],
   },
   getters: {
     productosConStock: (state) => {
@@ -23,25 +23,35 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    DESCONTAR(state, payload) {
-      let registro = null
-      state.juguetes = state.juguetes.map((e) => {
+    DESCONTAR(state, newJuguetes) {
+      state.juguetes = newJuguetes
+    },
+    REGISTRO(state, newHistorial) {
+      state.historialDeVentas = newHistorial
+    },
+  },
+  actions: {
+    descontar({ commit, state, dispatch }, payload) {
+      let registro
+      let newJuguetes = state.juguetes.map((e) => {
         if (e.id == payload.trim()) {
           e.stock--
           registro = e
         }
         return e
       })
-      this.commit('REGISTRO' , registro )
+      commit('DESCONTAR', newJuguetes)
+      console.log(registro)
+      dispatch('registro', registro)
     },
-    REGISTRO(state , e) {
-      state.historialDeVentas.push(e)
-    }
-  },
-  actions: {
-    descontar({ commit }, payload) {
-      commit('DESCONTAR', payload)
+    registro({ commit, state }, registro) {
+      registro.fecha = new Date()
+      let historial = state.historialDeVentas
+      historial.push(registro)
+      let newHistorial = historial
+      commit('REGISTRO', newHistorial)
     },
   },
+
   modules: {},
 })
