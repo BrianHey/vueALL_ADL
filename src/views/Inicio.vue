@@ -2,6 +2,7 @@
 <div class="home container px-5">
   <label for>Id</label>
   <select class="form-control">
+    <option disabled selected>Selecciona un juguete</option>
     <option v-for="(juguete,i) in juguetes" :key="i" :value="juguete.nombre">{{juguete.nombre}}</option>
   </select>
   <!-- <b-form-input id="input-2" v-model="id" placeholder="Nombre"></b-form-input> -->
